@@ -1,0 +1,445 @@
+/* ============================================================
+ * WAYBAR — DARK CRIMSON DRAGON
+ *
+ * Philosophy:
+ *   Minimal
+ *   Cinematic
+ *   Dark
+ *   Low saturation
+ *   Performance friendly
+ *
+ * Main accent:
+ *   Dark Crimson
+ * ============================================================ */
+
+
+/* ============================================================
+ * COLOR PALETTE
+ * ============================================================ */
+
+@define-color bg          rgba(10, 7, 9, 0.82);
+@define-color bg-solid    #0a0709;
+
+@define-color fg          #e8e1e3;
+@define-color fg-muted    #9d9296;
+
+@define-color crimson     #8f1d2c;
+@define-color crimson-hi  #b52a3c;
+@define-color crimson-dim #54131c;
+
+@define-color border      rgba(181, 42, 60, 0.30);
+
+@define-color warning     #c28a3a;
+@define-color critical    #c43b4d;
+
+
+/* ============================================================
+ * BASE
+ * ============================================================ */
+
+* {
+    font-family: "JetBrainsMono Nerd Font", "Noto Sans", sans-serif;
+
+    font-size: 12px;
+
+    min-height: 0;
+
+    border: none;
+    border-radius: 0;
+}
+
+
+/* ============================================================
+ * WAYBAR
+ * ============================================================ */
+
+window#waybar {
+
+    background: @bg;
+
+    color: @fg;
+
+    /*
+     * Subtle bottom border.
+     *
+     * Jangan terlalu terang karena wallpaper harus tetap
+     * menjadi visual focal point.
+     */
+    border-bottom: 1px solid @border;
+}
+
+
+/* ============================================================
+ * GENERAL MODULE SPACING
+ * ============================================================ */
+
+#workspaces,
+#window,
+#network,
+#pulseaudio,
+#custom-hardware,
+#battery,
+#clock,
+#custom-power {
+
+    padding: 0 8px;
+}
+
+
+/* ============================================================
+ * WORKSPACES
+ * ============================================================ */
+
+#workspaces {
+
+    margin-left: 8px;
+}
+
+
+/*
+ * Individual workspace button.
+ */
+
+#workspaces button {
+
+    color: @fg-muted;
+
+    padding: 0 7px;
+
+    margin: 3px 1px;
+
+    background: transparent;
+
+    transition:
+        background 150ms ease,
+        color 150ms ease;
+}
+
+
+/*
+ * Active workspace.
+ */
+
+#workspaces button.active {
+
+    color: @fg;
+
+    background: @crimson-dim;
+
+    border-bottom: 2px solid @crimson;
+}
+
+
+/*
+ * Empty workspace.
+ */
+
+#workspaces button.empty {
+
+    color: rgba(157, 146, 150, 0.35);
+}
+
+
+/*
+ * Urgent workspace.
+ */
+
+#workspaces button.urgent {
+
+    color: @critical;
+
+    background: rgba(196, 59, 77, 0.12);
+}
+
+
+/* ============================================================
+ * WINDOW TITLE
+ * ============================================================ */
+
+#window {
+
+    color: @fg-muted;
+
+    font-size: 12px;
+}
+
+
+/*
+ * Empty desktop.
+ */
+
+#window.empty {
+
+    color: rgba(157, 146, 150, 0.30);
+}
+
+
+/* ============================================================
+ * NETWORK
+ * ============================================================ */
+
+#network {
+
+    color: @fg-muted;
+}
+
+
+/*
+ * When disconnected.
+ */
+
+#network.disconnected {
+
+    color: @critical;
+}
+
+
+/*
+ * When linked but no IP.
+ */
+
+#network.linked {
+
+    color: @warning;
+}
+
+
+/* ============================================================
+ * AUDIO
+ * ============================================================ */
+
+#pulseaudio {
+
+    color: @fg-muted;
+}
+
+
+#pulseaudio.muted {
+
+    color: @critical;
+}
+
+
+/* ============================================================
+ * HARDWARE PANEL
+ * ============================================================ */
+
+#custom-hardware {
+
+    color: @fg;
+
+    background: rgba(143, 29, 44, 0.10);
+
+    border-left: 1px solid @border;
+    border-right: 1px solid @border;
+}
+
+
+/*
+ * Warning / critical states can later be added
+ * if the script outputs CSS classes.
+ */
+
+
+/* ============================================================
+ * BATTERY
+ * ============================================================ */
+
+#battery {
+
+    color: @fg-muted;
+}
+
+
+/*
+ * Charging.
+ */
+
+#battery.charging {
+
+    color: @fg;
+}
+
+
+/*
+ * Warning battery.
+ */
+
+#battery.warning {
+
+    color: @warning;
+}
+
+
+/*
+ * Critical battery.
+ */
+
+#battery.critical {
+
+    color: @critical;
+}
+
+
+/* ============================================================
+ * CLOCK
+ * ============================================================ */
+
+#clock {
+
+    color: @fg;
+
+    font-weight: 600;
+
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+
+/* ============================================================
+ * POWER
+ * ============================================================ */
+
+#custom-power {
+
+    color: @fg-muted;
+
+    margin-right: 8px;
+
+    transition:
+        color 150ms ease,
+        background 150ms ease;
+}
+
+
+#custom-power:hover {
+
+    color: @crimson-hi;
+
+    background: rgba(143, 29, 44, 0.12);
+}
+
+
+/* ============================================================
+ * TOOLTIPS
+ * ============================================================ */
+
+tooltip {
+
+    background: rgba(10, 7, 9, 0.96);
+
+    color: @fg;
+
+    border: 1px solid @border;
+
+    border-radius: 6px;
+}
+
+
+tooltip label {
+
+    color: @fg;
+}
+
+
+/* ============================================================
+ * HIDDEN / EMPTY
+ * ============================================================ */
+
+#custom-hardware.empty {
+
+    padding: 0;
+
+    margin: 0;
+
+    border: none;
+
+    background: transparent;
+}
+
+/* ============================================================
+ * WAYBAR — POWER MENU
+ * Theme: Dark Crimson / Dragon
+ * ============================================================ */
+
+
+/* ------------------------------------------------------------
+ * POWER BUTTON
+ * ------------------------------------------------------------ */
+
+#custom-power {
+    padding: 0 10px;
+    margin-left: 4px;
+
+    color: #d8d8d8;
+
+    transition:
+        color 150ms ease,
+        background-color 150ms ease;
+}
+
+
+/* ------------------------------------------------------------
+ * POWER BUTTON — HOVER
+ * ------------------------------------------------------------ */
+
+#custom-power:hover {
+    color: #b83a3a;
+
+    background-color: rgba(120, 20, 20, 0.20);
+}
+
+
+/* ------------------------------------------------------------
+ * GTK POWER MENU
+ * ------------------------------------------------------------ */
+
+menu {
+    background-color: rgba(12, 12, 14, 0.97);
+
+    border: 1px solid rgba(150, 35, 35, 0.65);
+
+    border-radius: 8px;
+
+    padding: 6px;
+
+    color: #d8d8d8;
+}
+
+
+/* ------------------------------------------------------------
+ * MENU ITEMS
+ * ------------------------------------------------------------ */
+
+menuitem {
+    padding: 8px 14px;
+
+    border-radius: 5px;
+
+    font-family: "Noto Sans";
+    font-size: 13px;
+
+    color: #d8d8d8;
+}
+
+
+/* ------------------------------------------------------------
+ * MENU ITEM — HOVER
+ * ------------------------------------------------------------ */
+
+menuitem:hover {
+    background-color: rgba(120, 20, 20, 0.35);
+
+    color: #ffffff;
+}
+
+
+/* ------------------------------------------------------------
+ * MENU ITEM — ACTIVE
+ * ------------------------------------------------------------ */
+
+menuitem:active {
+    background-color: rgba(150, 30, 30, 0.50);
+
+    color: #ffffff;
+}

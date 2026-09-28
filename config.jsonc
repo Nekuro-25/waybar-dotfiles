@@ -1,0 +1,306 @@
+// ============================================================
+// WAYBAR — HYPRLAND
+// Theme: Dark Crimson / Dragon
+// Philosophy: Minimal • Functional • Cinematic
+// ============================================================
+
+{
+    // --------------------------------------------------------
+    // GLOBAL
+    // --------------------------------------------------------
+
+    // Waybar berada di bagian atas layar.
+    "position": "top",
+
+    // Tinggi bar.
+    // 30px cukup compact tanpa membuat teks terlalu sempit.
+    "height": 30,
+
+    // Jarak antar module.
+    "spacing": 6,
+
+    // Membuat bagian tengah benar-benar berada di tengah layar.
+    "fixed-center": true,
+
+
+    // --------------------------------------------------------
+    // LAYOUT
+    // --------------------------------------------------------
+
+    // LEFT
+    //
+    // Workspace adalah informasi navigasi utama.
+    // Kita tidak menaruh terlalu banyak informasi di kiri.
+    "modules-left": [
+        "hyprland/workspaces"
+    ],
+
+
+    // CENTER
+    //
+    // Menampilkan window yang sedang aktif.
+    "modules-center": [
+        "hyprland/window"
+    ],
+
+
+    // RIGHT
+    //
+    // Hanya informasi yang benar-benar berguna.
+    "modules-right": [
+        "network",
+        "pulseaudio",
+	"custom/hardware",
+        "battery",
+        "clock",
+        "custom/power"
+    ],
+
+
+    // ========================================================
+    // HYPRLAND
+    // ========================================================
+
+    "hyprland/workspaces": {
+
+        // Hybrid:
+        // workspace tetap menggunakan angka,
+        // workspace aktif mendapatkan styling berbeda
+        // melalui CSS.
+        "format": "{name}",
+
+        // Jangan pindah workspace hanya karena mouse wheel.
+        // Kita ingin workflow keyboard-first.
+        "disable-scroll": true,
+
+        // Tidak perlu menampilkan workspace dari monitor lain.
+        "all-outputs": false,
+
+        // Tooltip tetap aktif agar informasi tambahan
+        // tidak perlu memenuhi bar.
+        "tooltip": true,
+
+        "format-icons": {
+            "1": "1",
+            "2": "2",
+            "3": "3",
+            "4": "4",
+            "5": "5",
+
+            "active": "●",
+            "default": "○"
+        }
+    },
+
+
+    // --------------------------------------------------------
+    // ACTIVE WINDOW
+    // --------------------------------------------------------
+
+    "hyprland/window": {
+
+        // Hanya title window.
+        //
+        // Contoh:
+        // Firefox — YouTube
+        // terminal
+        // nvim
+        "format": "{title}",
+
+        // Jangan biarkan aplikasi dengan title
+        // sangat panjang menghancurkan layout.
+        "max-length": 60,
+
+        // Jika title kosong, tampilkan Desktop.
+        "rewrite": {
+            "^$": "Desktop"
+        },
+
+        // Tooltip tidak diperlukan karena title
+        // sendiri sudah cukup informatif.
+        "tooltip": false
+    },
+
+
+    // ========================================================
+    // NETWORK
+    // ========================================================
+
+    "network": {
+
+        // Wi-Fi:
+        // Nama jaringan + kekuatan signal.
+        "format-wifi": "{essid} {signalStrength}% ",
+
+        // Ethernet:
+        // IP address.
+        "format-ethernet": "{ipaddr}/{cidr} 󰈀",
+
+        // Interface yang terhubung tetapi belum mendapat IP.
+        "format-linked": "{ifname} ",
+
+        // Tidak ada koneksi.
+        "format-disconnected": "Offline",
+
+        // Informasi tambahan ketika hover.
+        "tooltip-format": "{ifname}\nIP: {ipaddr}\nGateway: {gwaddr}",
+
+        // Alternatif ketika diklik/scroll.
+        "format-alt": "{ifname}: {ipaddr}/{cidr}"
+    },
+
+
+    // ========================================================
+    // AUDIO
+    // ========================================================
+
+    "pulseaudio": {
+
+        // Kita hanya ingin volume.
+        "format": "{volume}% {icon}",
+
+        "format-muted": "Muted ",
+
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "󰂑",
+            "headset": "󰂑",
+
+            // Default volume icons:
+            // low / medium / high
+            "default": [
+                "",
+                "",
+                ""
+            ]
+        },
+
+        // Klik membuka mixer.
+        "on-click": "pavucontrol",
+
+        // Tooltip sederhana.
+        "tooltip-format": "Volume: {volume}%"
+    },
+
+
+    // ========================================================
+    // BATTERY
+    // ========================================================
+
+    "battery": {
+
+        // ThinkPad kamu hanya terdeteksi:
+        //
+        // AC
+        // BAT0
+        //
+        // Jadi kita TIDAK menggunakan battery#bat2.
+
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+
+        "format": "{capacity}% {icon}",
+
+        "format-charging": "{capacity}% 󰂄",
+
+        "format-plugged": "{capacity}% ",
+
+        // Klik/scroll bisa digunakan untuk melihat
+        // waktu tersisa melalui alternate format.
+        "format-alt": "{time} {icon}",
+
+        "format-icons": [
+            "",
+            "",
+            "",
+            "",
+            ""
+        ],
+
+        "tooltip-format": "{capacity}%\n{time}"
+    },
+
+
+    // ========================================================
+    // CLOCK
+    // ========================================================
+
+    "clock": {
+
+        // Pilihanmu: D
+        //
+        // 29/08 · 00:21
+        "format": "{:%d/%m · %H:%M}",
+
+        // Alternate format:
+        // 2026-08-29
+        "format-alt": "{:%Y-%m-%d}",
+
+        // Calendar ketika hover.
+        "tooltip-format":
+            "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
+    },
+
+
+    // ========================================================
+    // POWER
+    // ========================================================
+
+    "custom/power": {
+
+        // Tombol sederhana.
+        "format": "⏻",
+
+        "tooltip": false,
+
+        // Klik membuka menu power.
+        "menu": "on-click",
+
+        "menu-file":
+            "$HOME/.config/waybar/power_menu.xml",
+
+        "menu-actions": {
+            "shutdown": "shutdown",
+            "reboot": "reboot",
+            "suspend": "systemctl suspend",
+            "hibernate": "systemctl hibernate"
+        }
+    },
+
+
+    // ========================================================
+    // HARDWARE PANEL
+    // ========================================================
+
+    // Ini sengaja custom.
+    //
+    // CPU + RAM + temperature tidak tampil permanen.
+    //
+    // Hyprland keybind akan menjalankan script:
+    //
+    // SUPER + I
+    //
+    // Script akan toggle panel ini.
+    //
+    // signal = 8 berarti:
+    // SIGRTMIN + 8
+    //
+    // Jadi Waybar tidak perlu direstart.
+    "custom/hardware": {
+
+        "format": "{text}",
+
+        "return-type": "json",
+
+        "exec":
+            "$HOME/.config/waybar/scripts/hardware-toggle.sh",
+
+        "signal": 8,
+
+        "interval": 2,
+
+        "tooltip": true
+    }
+}
