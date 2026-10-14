@@ -1,6 +1,6 @@
 // ============================================================
 // WAYBAR — HYPRLAND
-// Theme: Dark Crimson / Dragon
+// Theme: Ice Blue Night
 // Philosophy: Minimal • Functional • Cinematic
 // ============================================================
 
@@ -252,21 +252,11 @@
 
         // Tombol sederhana.
         "format": "⏻",
-
         "tooltip": false,
 
-        // Klik membuka menu power.
-        "menu": "on-click",
-
-        "menu-file":
-            "$HOME/.config/waybar/power_menu.xml",
-
-        "menu-actions": {
-            "shutdown": "shutdown",
-            "reboot": "reboot",
-            "suspend": "systemctl suspend",
-            "hibernate": "systemctl hibernate"
-        }
+        // Klik membuka power menu Rofi (konfirmasi Yes/No untuk
+        // Shutdown dan Reboot) - skrip yang sama dengan SUPER + X.
+        "on-click": "$HOME/.config/rofi/scripts/power-menu.sh"
     },
 
 

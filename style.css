@@ -1,36 +1,41 @@
 /* ============================================================
- * WAYBAR — DARK CRIMSON DRAGON
+ * WAYBAR — ICE BLUE NIGHT
  *
- * Philosophy:
- *   Minimal
- *   Cinematic
- *   Dark
- *   Low saturation
- *   Performance friendly
+ * Palet diambil dari wallpaper (navy + biru es) dan sama dengan Kitty,
+ * Hyprland (theme.lua), Hyprlock, Rofi dan Neovim.
  *
- * Main accent:
- *   Dark Crimson
+ * Filosofi tetap sama:
+ *   Minimal • Dark • Low saturation • Performance friendly
+ *
+ * Aksen:
+ *   Azure   -> state aktif, hover
+ *   Biru es -> informasi utama (workspace aktif, jam, hardware)
  * ============================================================ */
 
 
 /* ============================================================
- * COLOR PALETTE
+ * COLOR PALETTE (ice blue night)
  * ============================================================ */
 
-@define-color bg          rgba(10, 7, 9, 0.82);
-@define-color bg-solid    #0a0709;
+@define-color bg          rgba(20, 29, 72, 0.78);
+@define-color bg-solid    #141d48;
+@define-color bg-alt      #1b2658;
 
-@define-color fg          #e8e1e3;
-@define-color fg-muted    #9d9296;
+@define-color fg          #dbe6ff;
+@define-color fg-muted    #9aabe0;
+@define-color dim         #7689c5;
 
-@define-color crimson     #8f1d2c;
-@define-color crimson-hi  #b52a3c;
-@define-color crimson-dim #54131c;
+@define-color accent      #5d80e4;
+@define-color accent-hi   #8fa8f2;
 
-@define-color border      rgba(181, 42, 60, 0.30);
+@define-color sky         #a8c4ff;
+@define-color sky-hi      #cfdeff;
 
-@define-color warning     #c28a3a;
-@define-color critical    #c43b4d;
+@define-color border        rgba(93, 128, 228, 0.35);
+@define-color border-strong rgba(93, 128, 228, 0.60);
+
+@define-color warning     #e6c987;
+@define-color critical    #f2829c;
 
 
 /* ============================================================
@@ -60,10 +65,8 @@ window#waybar {
     color: @fg;
 
     /*
-     * Subtle bottom border.
-     *
-     * Jangan terlalu terang karena wallpaper harus tetap
-     * menjadi visual focal point.
+     * Garis bawah tipis.
+     * Tetap halus supaya wallpaper menjadi fokus visual.
      */
     border-bottom: 1px solid @border;
 }
@@ -97,7 +100,9 @@ window#waybar {
 
 
 /*
- * Individual workspace button.
+ * Tombol workspace.
+ * border-bottom transparan disiapkan di sini supaya tombol
+ * tidak bergeser 2px ketika menjadi aktif.
  */
 
 #workspaces button {
@@ -110,45 +115,59 @@ window#waybar {
 
     background: transparent;
 
+    border-bottom: 2px solid transparent;
+
+    box-shadow: none;
+    text-shadow: none;
+
     transition:
         background 150ms ease,
-        color 150ms ease;
+        color 150ms ease,
+        border-color 150ms ease;
+}
+
+
+#workspaces button:hover {
+
+    color: @fg;
+
+    background: rgba(93, 128, 228, 0.12);
 }
 
 
 /*
- * Active workspace.
+ * Workspace aktif: teks biru es, garis bawah merah.
  */
 
 #workspaces button.active {
 
-    color: @fg;
+    color: @sky;
 
-    background: @crimson-dim;
+    background: rgba(93, 128, 228, 0.18);
 
-    border-bottom: 2px solid @crimson;
+    border-bottom: 2px solid @accent;
 }
 
 
 /*
- * Empty workspace.
+ * Workspace kosong.
  */
 
 #workspaces button.empty {
 
-    color: rgba(157, 146, 150, 0.35);
+    color: rgba(154, 171, 224, 0.55);
 }
 
 
 /*
- * Urgent workspace.
+ * Workspace urgent.
  */
 
 #workspaces button.urgent {
 
     color: @critical;
 
-    background: rgba(196, 59, 77, 0.12);
+    background: rgba(242, 130, 156, 0.15);
 }
 
 
@@ -159,18 +178,12 @@ window#waybar {
 #window {
 
     color: @fg-muted;
-
-    font-size: 12px;
 }
 
 
-/*
- * Empty desktop.
- */
-
 #window.empty {
 
-    color: rgba(157, 146, 150, 0.30);
+    color: rgba(154, 171, 224, 0.50);
 }
 
 
@@ -184,19 +197,11 @@ window#waybar {
 }
 
 
-/*
- * When disconnected.
- */
-
 #network.disconnected {
 
     color: @critical;
 }
 
-
-/*
- * When linked but no IP.
- */
 
 #network.linked {
 
@@ -226,9 +231,9 @@ window#waybar {
 
 #custom-hardware {
 
-    color: @fg;
+    color: @sky;
 
-    background: rgba(143, 29, 44, 0.10);
+    background: rgba(93, 128, 228, 0.10);
 
     border-left: 1px solid @border;
     border-right: 1px solid @border;
@@ -236,9 +241,20 @@ window#waybar {
 
 
 /*
- * Warning / critical states can later be added
- * if the script outputs CSS classes.
+ * Ketika panel disembunyikan (teks kosong), jangan sisakan
+ * padding, margin, atau garis pembatas.
  */
+
+#custom-hardware.empty {
+
+    padding: 0;
+
+    margin: 0;
+
+    border: none;
+
+    background: transparent;
+}
 
 
 /* ============================================================
@@ -251,29 +267,17 @@ window#waybar {
 }
 
 
-/*
- * Charging.
- */
-
 #battery.charging {
 
-    color: @fg;
+    color: @sky;
 }
 
-
-/*
- * Warning battery.
- */
 
 #battery.warning {
 
     color: @warning;
 }
 
-
-/*
- * Critical battery.
- */
 
 #battery.critical {
 
@@ -287,7 +291,7 @@ window#waybar {
 
 #clock {
 
-    color: @fg;
+    color: @sky-hi;
 
     font-weight: 600;
 
@@ -297,26 +301,30 @@ window#waybar {
 
 
 /* ============================================================
- * POWER
+ * POWER BUTTON
+ * (sebelumnya didefinisikan dua kali, kini digabung)
  * ============================================================ */
 
 #custom-power {
 
     color: @fg-muted;
 
+    padding: 0 10px;
+
+    margin-left: 4px;
     margin-right: 8px;
 
     transition:
         color 150ms ease,
-        background 150ms ease;
+        background-color 150ms ease;
 }
 
 
 #custom-power:hover {
 
-    color: @crimson-hi;
+    color: @accent-hi;
 
-    background: rgba(143, 29, 44, 0.12);
+    background-color: rgba(93, 128, 228, 0.15);
 }
 
 
@@ -326,7 +334,7 @@ window#waybar {
 
 tooltip {
 
-    background: rgba(10, 7, 9, 0.96);
+    background: rgba(20, 29, 72, 0.96);
 
     color: @fg;
 
@@ -343,103 +351,47 @@ tooltip label {
 
 
 /* ============================================================
- * HIDDEN / EMPTY
+ * POWER MENU (GTK menu dari power_menu.xml)
  * ============================================================ */
-
-#custom-hardware.empty {
-
-    padding: 0;
-
-    margin: 0;
-
-    border: none;
-
-    background: transparent;
-}
-
-/* ============================================================
- * WAYBAR — POWER MENU
- * Theme: Dark Crimson / Dragon
- * ============================================================ */
-
-
-/* ------------------------------------------------------------
- * POWER BUTTON
- * ------------------------------------------------------------ */
-
-#custom-power {
-    padding: 0 10px;
-    margin-left: 4px;
-
-    color: #d8d8d8;
-
-    transition:
-        color 150ms ease,
-        background-color 150ms ease;
-}
-
-
-/* ------------------------------------------------------------
- * POWER BUTTON — HOVER
- * ------------------------------------------------------------ */
-
-#custom-power:hover {
-    color: #b83a3a;
-
-    background-color: rgba(120, 20, 20, 0.20);
-}
-
-
-/* ------------------------------------------------------------
- * GTK POWER MENU
- * ------------------------------------------------------------ */
 
 menu {
-    background-color: rgba(12, 12, 14, 0.97);
 
-    border: 1px solid rgba(150, 35, 35, 0.65);
+    background-color: rgba(20, 29, 72, 0.97);
+
+    border: 1px solid @border-strong;
 
     border-radius: 8px;
 
     padding: 6px;
 
-    color: #d8d8d8;
+    color: @fg;
 }
 
 
-/* ------------------------------------------------------------
- * MENU ITEMS
- * ------------------------------------------------------------ */
-
 menuitem {
+
     padding: 8px 14px;
 
     border-radius: 5px;
 
-    font-family: "Noto Sans";
+    font-family: "JetBrainsMono Nerd Font", "Noto Sans", sans-serif;
     font-size: 13px;
 
-    color: #d8d8d8;
+    color: @fg;
 }
 
 
-/* ------------------------------------------------------------
- * MENU ITEM — HOVER
- * ------------------------------------------------------------ */
-
 menuitem:hover {
-    background-color: rgba(120, 20, 20, 0.35);
+
+    background-color: rgba(93, 128, 228, 0.30);
 
     color: #ffffff;
 }
 
 
-/* ------------------------------------------------------------
- * MENU ITEM — ACTIVE
- * ------------------------------------------------------------ */
-
 menuitem:active {
-    background-color: rgba(150, 30, 30, 0.50);
+
+    background-color: rgba(93, 128, 228, 0.50);
 
     color: #ffffff;
 }
